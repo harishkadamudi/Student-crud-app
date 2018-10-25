@@ -23,53 +23,51 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-		classes = StudDetailsApplication.class,
-		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        classes = StudDetailsApplication.class,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @TestPropertySource(
         locations = "classpath:application-integration.properties"
 )
 public class StudentIntegrationTest {
 
-		@LocalServerPort
-		private Integer port;
-		HttpHeaders headers = new HttpHeaders();
-		
-		@Autowired
-		private MockMvc mvc;
-		
-		@Autowired
-		private StudRepo studRepo;
+    @LocalServerPort
+    private Integer port;
+    HttpHeaders headers = new HttpHeaders();
 
-		@Autowired
-	    private TestRestTemplate restTemplate;
-		
-		@Test
-		public void whenPostStudent_200Response()throws Exception
-		{
-			Student stud = new Student();
-			stud.setFirstName("Subham");
-			stud.setLastName("choudhary");
-			stud.setEmail("choudharysubham47@gmail.com");
-			
-			mvc.perform(post("/Student")
-	                .contentType(MediaType.APPLICATION_JSON_VALUE).content(asJsonString(stud)))
-	                .andExpect(status().isOk());
-		}
-		
-		
-		
-		@SuppressWarnings("unused")
-		private String buildurl(String uri){
-	        return "http://localhost:"+port+uri;
-	    }
+    @Autowired
+    private MockMvc mvc;
 
-		public static String asJsonString(final Object obj) {
-	        try {
-	            return new ObjectMapper().writeValueAsString(obj);
-	        } catch (Exception e) {
-	            throw new RuntimeException(e);
-	        }
-	    }
-		
+    @Autowired
+    private StudRepo studRepo;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+    @Test
+    public void whenPostStudent_200Response() throws Exception {
+        Student stud = new Student();
+        stud.setFirstName("Subham");
+        stud.setLastName("choudhary");
+        stud.setEmail("choudharysubham47@gmail.com");
+
+        mvc.perform(post("/Student")
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content(asJsonString(stud)))
+                .andExpect(status().isOk());
+    }
+
+
+    @SuppressWarnings("unused")
+    private String buildurl(String uri) {
+        return "http://localhost:" + port + uri;
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

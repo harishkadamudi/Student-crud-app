@@ -12,6 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.Students.Stud_Details.Model.Student;
 import com.Students.Stud_Details.Repo.StudRepo;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class StudentRepositoryUnitTest {
